@@ -30,7 +30,7 @@ Available sections:
 
 - `Silk Skills`: Silkspear, Thread Storm, Cross Stitch, Sharpdart, Rune Rage, Pale Nails.
 - `Ancestral Arts`: Swift Step, Cling Grip, Needolin, Clawline, Silk Soar, Sylphsong.
-- `Needolin Melodies`: Beastling Call, Elegy of the Deep.
+- `Needolin Memories`: Beastling Call, Elegy of the Deep.
 - `Other Abilities`: Needle Strike, Drifter's Cloak, Faydown Cloak.
 - `Additional Options`: Bind Drifter's Cloak to LB/L1.
 

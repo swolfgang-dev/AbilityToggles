@@ -19,13 +19,13 @@ namespace AbilitiesUnlocked
         public static void Bind(ConfigFile config, SaveScopedConfigFile saveConfig)
         {
             globalEnabled = config.Bind(
-                ConfigUi.GlobalNeedolinMelodies,
+                ConfigUi.GlobalNeedolinMemories,
                 "Beastling Call",
                 false,
                 ConfigUi.GlobalDescription("Use Beastling Call fast travel behavior for every save without setting PlayerData.UnlockedFastTravelTeleport.", ConfigUi.BeastlingCallOrder));
 
             saveEnabled = saveConfig.Bind(
-                ConfigUi.NeedolinMelodies,
+                ConfigUi.NeedolinMemories,
                 "Beastling Call",
                 false,
                 ConfigUi.SaveDescription("Use Beastling Call fast travel behavior without setting PlayerData.UnlockedFastTravelTeleport.", ConfigUi.BeastlingCallOrder));

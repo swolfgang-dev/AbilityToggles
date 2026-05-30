@@ -5,40 +5,40 @@ namespace AbilitiesUnlocked
 {
     internal static class ConfigUi
     {
-        public const string GlobalAncestralArts = "Global: Ancestral Arts";
         public const string GlobalSilkSkills = "Global: Silk Skills";
-        public const string GlobalNeedolinMelodies = "Global: Needolin Melodies";
+        public const string GlobalAncestralArts = "Global: Ancestral Arts";
+        public const string GlobalNeedolinMemories = "Global: Needolin Memories";
         public const string GlobalOtherAbilities = "Global: Other Abilities";
         public const string GlobalAdditionalOptions = "Global: Additional Options";
 
-        public const string AncestralArts = "Ancestral Arts";
         public const string SilkSkills = "Silk Skills";
-        public const string NeedolinMelodies = "Needolin Melodies";
+        public const string AncestralArts = "Ancestral Arts";
+        public const string NeedolinMemories = "Needolin Memories";
         public const string OtherAbilities = "Other Abilities";
         public const string AdditionalOptions = "Additional Options";
 
-        public const int SilkspearOrder = 0;
-        public const int ThreadStormOrder = 1;
-        public const int CrossStitchOrder = 2;
-        public const int SharpdartOrder = 3;
-        public const int RuneRageOrder = 4;
-        public const int PaleNailsOrder = 5;
+        public const int SilkspearOrder = 5000;
+        public const int ThreadStormOrder = 5001;
+        public const int CrossStitchOrder = 5002;
+        public const int SharpdartOrder = 5003;
+        public const int RuneRageOrder = 5004;
+        public const int PaleNailsOrder = 5005;
 
-        public const int SwiftStepOrder = 100;
-        public const int ClingGripOrder = 101;
-        public const int NeedolinOrder = 102;
-        public const int ClawlineOrder = 103;
-        public const int SilkSoarOrder = 104;
-        public const int SylphsongOrder = 105;
+        public const int SwiftStepOrder = 4000;
+        public const int ClingGripOrder = 4001;
+        public const int NeedolinOrder = 4002;
+        public const int ClawlineOrder = 4003;
+        public const int SilkSoarOrder = 4004;
+        public const int SylphsongOrder = 4005;
 
-        public const int BeastlingCallOrder = 200;
-        public const int ElegyOfTheDeepOrder = 201;
+        public const int BeastlingCallOrder = 3000;
+        public const int ElegyOfTheDeepOrder = 3001;
 
-        public const int NeedleStrikeOrder = 300;
-        public const int DriftersCloakOrder = 302;
-        public const int FaydownCloakOrder = 303;
+        public const int NeedleStrikeOrder = 2000;
+        public const int DriftersCloakOrder = 2002;
+        public const int FaydownCloakOrder = 2003;
 
-        public const int BindDriftersCloakOrder = 400;
+        public const int BindDriftersCloakOrder = 1000;
 
         public static ConfigDescription GlobalDescription(string description, int order)
         {

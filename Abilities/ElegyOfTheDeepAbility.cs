@@ -16,13 +16,13 @@ namespace AbilitiesUnlocked
         public static void Bind(ConfigFile config, SaveScopedConfigFile saveConfig)
         {
             globalEnabled = config.Bind(
-                ConfigUi.GlobalNeedolinMelodies,
+                ConfigUi.GlobalNeedolinMemories,
                 "Elegy of the Deep",
                 false,
                 ConfigUi.GlobalDescription("Allow Elegy of the Deep for every save without setting PlayerData.hasNeedolinMemoryPowerup. Requires Needolin.", ConfigUi.ElegyOfTheDeepOrder));
 
             saveEnabled = saveConfig.Bind(
-                ConfigUi.NeedolinMelodies,
+                ConfigUi.NeedolinMemories,
                 "Elegy of the Deep",
                 false,
                 ConfigUi.SaveDescription("Allow Elegy of the Deep without setting PlayerData.hasNeedolinMemoryPowerup. Requires Needolin.", ConfigUi.ElegyOfTheDeepOrder));
