@@ -4,14 +4,14 @@ using BepInEx.Logging;
 using HarmonyLib;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     [BepInDependency(SaveScopedConfigPlugin.PluginGuid)]
     public sealed class Plugin : BaseUnityPlugin
     {
-        public const string PluginGuid = "whereswolfgang.abilitiesunlocked";
-        public const string PluginName = "Abilities Unlocked";
+        public const string PluginGuid = "whereswolfgang.abilitytoggles";
+        public const string PluginName = "Ability Toggles";
         public const string PluginVersion = "0.1.0";
 
         private static readonly Harmony Harmony = new Harmony(PluginGuid);

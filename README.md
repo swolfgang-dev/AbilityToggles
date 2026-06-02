@@ -1,6 +1,6 @@
-# Abilities Unlocked
+# Ability Toggles
 
-Abilities Unlocked is a BepInEx mod for Hollow Knight: Silksong.
+Ability Toggles is a BepInEx mod for Hollow Knight: Silksong.
 
 Current state: Silk Skills, Swift Step, Cling Grip, Faydown Cloak, Drifter's Cloak, Silk Soar, Needolin, Clawline, Needle Strike, Sylphsong, Beastling Call, and Elegy of the Deep.
 
@@ -20,7 +20,7 @@ Elegy of the Deep is patched through the normal Needolin memory powerup check wi
 
 ## Config
 
-Settings appear under `Abilities Unlocked` in Configuration Manager.
+Settings appear under `Ability Toggles` in Configuration Manager.
 Global toggles apply to every save, and each save slot also has its own values through Save Scoped Config.
 An ability is enabled if either its global toggle or active-save toggle is enabled.
 
@@ -39,17 +39,17 @@ Available sections:
 From the game directory:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\ModDev\AbilitiesUnlocked\build.ps1
+powershell.exe -ExecutionPolicy Bypass -File .\ModDev\AbilityToggles\build.ps1
 ```
 
 The default build target is development mode:
 
 ```text
-BepInEx/scripts/AbilitiesUnlocked.dll
+BepInEx/scripts/AbilityToggles.dll
 ```
 
 For a normal BepInEx plugin install:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\ModDev\AbilitiesUnlocked\build.ps1 -Target Plugin
+powershell.exe -ExecutionPolicy Bypass -File .\ModDev\AbilityToggles\build.ps1 -Target Plugin
 ```

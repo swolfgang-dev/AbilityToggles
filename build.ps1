@@ -8,14 +8,14 @@ $ErrorActionPreference = "Stop"
 $projectDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $gameDir = Resolve-Path (Join-Path $projectDir "..\..")
 $outputDir = if ($Target -eq "Plugin") {
-    Join-Path $gameDir "BepInEx\plugins\AbilitiesUnlocked"
+    Join-Path $gameDir "BepInEx\plugins\AbilityToggles"
 } else {
     Join-Path $gameDir "BepInEx\scripts"
 }
 
 New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
 
-dotnet build "$projectDir\AbilitiesUnlocked.csproj" `
+dotnet build "$projectDir\AbilityToggles.csproj" `
     --configuration Release `
     --nologo `
     -p:OutDir="$outputDir\"
@@ -24,9 +24,9 @@ if ($LASTEXITCODE -ne 0) {
     throw "Build failed with exit code $LASTEXITCODE"
 }
 
-$depsFile = Join-Path $outputDir "AbilitiesUnlocked.deps.json"
+$depsFile = Join-Path $outputDir "AbilityToggles.deps.json"
 if (Test-Path -LiteralPath $depsFile) {
     Remove-Item -LiteralPath $depsFile -Force
 }
 
-Write-Host "Built $(Join-Path $outputDir 'AbilitiesUnlocked.dll')"
+Write-Host "Built $(Join-Path $outputDir 'AbilityToggles.dll')"

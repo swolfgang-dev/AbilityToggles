@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class SilkSkillsAbility
     {

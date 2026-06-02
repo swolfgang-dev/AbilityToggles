@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>AbilitiesUnlocked</AssemblyName>
-    <RootNamespace>AbilitiesUnlocked</RootNamespace>
+    <AssemblyName>AbilityToggles</AssemblyName>
+    <RootNamespace>AbilityToggles</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>

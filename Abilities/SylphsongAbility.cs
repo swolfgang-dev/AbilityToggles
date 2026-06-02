@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class SylphsongAbility
     {

@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class BeastlingCallAbility
     {

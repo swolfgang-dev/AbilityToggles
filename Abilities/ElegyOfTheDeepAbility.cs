@@ -4,7 +4,7 @@ using HarmonyLib;
 using System;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class ElegyOfTheDeepAbility
     {

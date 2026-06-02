@@ -1,4 +1,4 @@
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal sealed class ConfigurationManagerAttributes
     {

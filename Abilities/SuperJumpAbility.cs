@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class SuperJumpAbility
     {

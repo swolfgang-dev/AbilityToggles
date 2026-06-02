@@ -2,7 +2,7 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class HarpoonDashAbility
     {

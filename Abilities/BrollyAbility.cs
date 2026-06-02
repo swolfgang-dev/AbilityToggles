@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using WheresWolfgang.SaveScopedConfig;
 
-namespace AbilitiesUnlocked
+namespace AbilityToggles
 {
     internal static class BrollyAbility
     {
