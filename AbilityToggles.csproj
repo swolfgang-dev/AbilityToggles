@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <GameDir Condition="'$(GameDir)' == ''">$(MSBuildThisFileDirectory)../..</GameDir>
+    <SaveScopedConfigPath Condition="'$(SaveScopedConfigPath)' == ''">$(GameDir)/BepInEx/plugins/SaveScopedConfig/SaveScopedConfig.dll</SaveScopedConfigPath>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AbilityToggles</AssemblyName>
     <RootNamespace>AbilityToggles</RootNamespace>
@@ -8,13 +9,16 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <FileVersion>0.1.0.0</FileVersion>
-    <InformationalVersion>0.1.0</InformationalVersion>
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
+    <FileVersion>0.2.0.0</FileVersion>
+    <InformationalVersion>0.2.0</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests/**/*.cs" />
     <Reference Include="0Harmony">
       <HintPath>$(GameDir)/BepInEx/core/0Harmony.dll</HintPath>
       <Private>false</Private>
@@ -40,8 +44,10 @@
       <Private>false</Private>
     </Reference>
     <Reference Include="SaveScopedConfig">
-      <HintPath>$(GameDir)/BepInEx/plugins/SaveScopedConfig/SaveScopedConfig.dll</HintPath>
+      <HintPath>$(SaveScopedConfigPath)</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(GameDir)/Hollow Knight Silksong_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.InputLegacyModule"><HintPath>$(GameDir)/Hollow Knight Silksong_Data/Managed/UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>
 </Project>

@@ -18,12 +18,23 @@ namespace AbilityToggles
         private static SaveScopedConfigEntry<bool> saveEnabled;
         private static SaveScopedConfigEntry<bool> saveBindToQuickMapInput;
         private static bool quickMapConsumedForBrolly;
+        private enum ExtraInputAction { QuickMap, Cast, QuickCast, SuperDash, DreamNail, None }
+        private static ConfigEntry<ExtraInputAction> extraAction;
+        private static ConfigEntry<UnityEngine.KeyCode> extraKey;
+        private static ConfigEntry<InputControlType> extraController;
+
         private static readonly MethodInfo CanFloatMethod = AccessTools.Method(typeof(HeroController), "CanFloat");
         private static readonly MethodInfo StartFloatMethod = AccessTools.Method(typeof(HeroController), "StartFloat");
         private static readonly FieldInfo IsGameplaySceneField = AccessTools.Field(typeof(HeroController), "isGameplayScene");
 
         public static void Bind(ConfigFile config, SaveScopedConfigFile saveConfig)
         {
+            extraAction = config.Bind("Controls", "Cloak Extra Game Action", ExtraInputAction.QuickMap,
+                "Extra mapped game action for Drifter's Cloak. None uses only custom controls. The existing extra-input enable setting still applies.");
+            extraKey = config.Bind("Controls", "Cloak Extra Keyboard Key", UnityEngine.KeyCode.None,
+                "Optional extra cloak key. None leaves it disabled. Normal jump behavior remains available.");
+            extraController = config.Bind("Controls", "Cloak Extra Controller Button", InputControlType.None,
+                "Optional mapped controller control. None leaves it disabled. Avoid conflicts with game bindings.");
             globalEnabled = config.Bind(
                 ConfigUi.GlobalOtherAbilities,
                 "Drifters Cloak",
@@ -33,7 +44,7 @@ namespace AbilityToggles
                 ConfigUi.GlobalAdditionalOptions,
                 "Bind Drifters Cloak to LB/L1",
                 false,
-                ConfigUi.GlobalDescription("Also let LB/L1 / Quick Map control Drifter's Cloak for every save. This is in addition to the default jump behavior.", ConfigUi.BindDriftersCloakOrder, "Bind Drifter's Cloak to LB/L1"));
+                ConfigUi.GlobalDescription("Enable additional cloak controls configured in Controls for every save. Normal jump behavior remains available.", ConfigUi.BindDriftersCloakOrder, "Enable extra cloak controls"));
             saveEnabled = saveConfig.Bind(
                 ConfigUi.OtherAbilities,
                 "Drifters Cloak",
@@ -43,7 +54,7 @@ namespace AbilityToggles
                 ConfigUi.AdditionalOptions,
                 "Bind Drifters Cloak to LB/L1",
                 true,
-                ConfigUi.SaveDescription("Also let LB/L1 / Quick Map control Drifter's Cloak. This is in addition to the default jump behavior.", ConfigUi.BindDriftersCloakOrder, "Bind Drifter's Cloak to LB/L1"));
+                ConfigUi.SaveDescription("Enable additional cloak controls configured in Controls for this save. Normal jump behavior remains available.", ConfigUi.BindDriftersCloakOrder, "Enable extra cloak controls"));
         }
 
         private static bool IsEnabled()
@@ -103,7 +114,7 @@ namespace AbilityToggles
             }
 
             PlayerAction quickMap = GetQuickMapAction(heroController);
-            if (quickMap == null || !quickMap.WasPressed || !CanFloat(heroController, true))
+            if (!WasExtraPressed(quickMap) || !CanFloat(heroController, true))
             {
                 return;
             }
@@ -111,7 +122,8 @@ namespace AbilityToggles
             if (StartFloatMethod != null)
             {
                 StartFloatMethod.Invoke(heroController, null);
-                quickMapConsumedForBrolly = true;
+                var input = GetInputHandler();
+                quickMapConsumedForBrolly = input != null && input.inputActions.QuickMap.IsPressed;
             }
         }
 
@@ -123,7 +135,7 @@ namespace AbilityToggles
         private static PlayerAction GetQuickMapAction(HeroController heroController)
         {
             InputHandler inputHandler = GetInputHandler();
-            return inputHandler == null ? null : inputHandler.inputActions.QuickMap;
+            return GetExtraAction(inputHandler);
         }
 
         private static PlayerAction GetQuickMapAction()
@@ -188,23 +200,58 @@ namespace AbilityToggles
             }
 
             jump = inputHandler.inputActions.Jump;
-            quickMap = inputHandler.inputActions.QuickMap;
-            return jump != null && quickMap != null;
+            quickMap = GetExtraAction(inputHandler);
+            return jump != null;
+        }
+
+        private static PlayerAction GetExtraAction(InputHandler input)
+        {
+            if (input == null || extraAction == null) return null;
+            switch (extraAction.Value)
+            {
+                case ExtraInputAction.QuickMap: return input.inputActions.QuickMap;
+                case ExtraInputAction.Cast: return input.inputActions.Cast;
+                case ExtraInputAction.QuickCast: return input.inputActions.QuickCast;
+                case ExtraInputAction.SuperDash: return input.inputActions.SuperDash;
+                case ExtraInputAction.DreamNail: return input.inputActions.DreamNail;
+                default: return null;
+            }
+        }
+
+        private static InputControl ExtraControl => extraController == null || extraController.Value == InputControlType.None
+            ? InputControl.Null : InputManager.ActiveDevice.GetControl(extraController.Value);
+
+        private static bool IsExtraPressed(PlayerAction action)
+        {
+            return (action != null && action.IsPressed) || ExtraControl.IsPressed ||
+                (extraKey != null && extraKey.Value != UnityEngine.KeyCode.None && UnityEngine.Input.GetKey(extraKey.Value));
+        }
+
+        private static bool WasExtraPressed(PlayerAction action)
+        {
+            return (action != null && action.WasPressed) || ExtraControl.WasPressed ||
+                (extraKey != null && extraKey.Value != UnityEngine.KeyCode.None && UnityEngine.Input.GetKeyDown(extraKey.Value));
+        }
+
+        private static bool WasExtraReleased(PlayerAction action)
+        {
+            return (action != null && action.WasReleased) || ExtraControl.WasReleased ||
+                (extraKey != null && extraKey.Value != UnityEngine.KeyCode.None && UnityEngine.Input.GetKeyUp(extraKey.Value));
         }
 
         private static bool IsJumpOrQuickMapPressed(PlayerAction jump, PlayerAction quickMap)
         {
-            return jump.IsPressed || quickMap.IsPressed;
+            return jump.IsPressed || IsExtraPressed(quickMap);
         }
 
         private static bool WasJumpOrQuickMapPressed(PlayerAction jump, PlayerAction quickMap)
         {
-            return jump.WasPressed || quickMap.WasPressed;
+            return jump.WasPressed || WasExtraPressed(quickMap);
         }
 
         private static bool WasJumpOrQuickMapReleased(PlayerAction jump, PlayerAction quickMap)
         {
-            return jump.WasReleased || quickMap.WasReleased;
+            return (jump.WasReleased || WasExtraReleased(quickMap)) && !IsJumpOrQuickMapPressed(jump, quickMap);
         }
 
         private static bool HandleListenForJump(ListenForJump action)

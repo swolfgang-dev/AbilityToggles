@@ -55,7 +55,8 @@ namespace AbilityToggles
 
         private static void LogDetection(string key, string message)
         {
-            if (LoggedDetections.Add(key))
+            if (Plugin.Instance != null && Plugin.Instance.DiagnosticLogging &&
+                LoggedDetections.Count < 128 && LoggedDetections.Add(key))
             {
                 Plugin.Log.LogInfo("[Beastling Call detection] " + message);
             }

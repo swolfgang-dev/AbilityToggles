@@ -7,12 +7,12 @@ using WheresWolfgang.SaveScopedConfig;
 namespace AbilityToggles
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
-    [BepInDependency(SaveScopedConfigPlugin.PluginGuid)]
-    public sealed class Plugin : BaseUnityPlugin
+    [BepInDependency(SaveScopedConfigPlugin.PluginGuid, "0.4.0")]
+    public sealed partial class Plugin : BaseUnityPlugin
     {
         public const string PluginGuid = "whereswolfgang.abilitytoggles";
         public const string PluginName = "Ability Toggles";
-        public const string PluginVersion = "0.1.0";
+        public const string PluginVersion = "0.2.0";
 
         private static readonly Harmony Harmony = new Harmony(PluginGuid);
         private SaveScopedConfigFile saveConfig;
@@ -39,7 +39,10 @@ namespace AbilityToggles
             BrollyAbility.Bind(Config, saveConfig);
             DoubleJumpAbility.Bind(Config, saveConfig);
 
-            Harmony.PatchAll(typeof(Plugin).Assembly);
+            BindStatusControls();
+            ModCompatibility.TryPatch(Harmony, typeof(Plugin).Assembly, Logger, out compatibilityStatus,
+                AccessTools.Method(typeof(HeroController), "CanDash"),
+                AccessTools.Method(typeof(HeroController), "CanFloat"));
             Logger.LogInfo(PluginName + " loaded.");
         }
 
